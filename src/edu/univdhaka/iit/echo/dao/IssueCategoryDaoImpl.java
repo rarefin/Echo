@@ -8,15 +8,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.univdhaka.iit.echo.domain.IssueCategory;
 
 public class IssueCategoryDaoImpl implements IssueCategoryDao {
+	private static final Logger log = LoggerFactory.getLogger(IssueCategoryDaoImpl.class);
 	
 	DatabaseConnector db = new DatabaseConnector();
 	Connection connection = db.openConnection();
 	
 	@Override
 	public void insert(IssueCategory category) {
+		log.debug("insert() > insert issue category info in the database");
 		try {
 			String query = "INSERT INTO issue_category (version, createdDate, lastModifiedDate, isNew, title)" 
 					 + "VALUES(?, ?, ?, ?, ?)";
@@ -34,9 +39,10 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 				preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.error("Unable to prepare issue category info to insert", e);
 			}
 		} catch (Exception e) {
-		
+			log.error("Unable to insert issue category info", e);
 		} finally {
 			db.closeConnection();
 		}	
@@ -44,9 +50,11 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 
 	@Override
 	public List<IssueCategory> getAllIssueCategoryInfo() {
-		String query = "SELECT * FROM issue_category";
+		log.debug("getAllIssueCategoryInfo() > get issue category info of all users");
+		
 		List<IssueCategory> list = new ArrayList<IssueCategory>();
 		try {
+			String query = "SELECT * FROM issue_category";
 			try {
 				Statement statement = connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
@@ -64,9 +72,10 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				log.error("Unable to set all user's issue category info from authority table ", e);
 			}
 		}catch (Exception e) {
-			
+			log.error("Unable to select all user's issue category info from authority table ", e);
 		}finally{
 			db.closeConnection();
 		}
@@ -75,6 +84,7 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 
 	@Override
 	public void delete(int id) {
+		log.debug("delete() > delete issue categoy info");
 		try {
 			String query = "DELETE FROM issue_category WHERE id = ?";
 			PreparedStatement preparedStatement = null;
@@ -84,9 +94,10 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 				preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.error("Unable to prepare issue category info to delete", e);
 			}
 		}catch(Exception e) {
-			
+			log.error("Unable to delete issue category info", e);
 		}finally{
 			db.closeConnection();
 		}	
@@ -94,6 +105,8 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 
 	@Override
 	public void update(IssueCategory category, int id) {
+		log.debug("upadte() > update issue category info");
+		
 		try{
 			String query = "UPDATE issue_category SET version = ?, "
 							 +	"createdDate = ?, lastModifiedDate = ?, "
@@ -113,9 +126,10 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 				preparedStatement.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				log.error("Unable to prepare issue category upadate info", e);
 			}
 		} catch(Exception e){
-			
+			log.error("Unable to update issue category info", e);
 		}finally{
 			db.closeConnection();
 		}
@@ -124,6 +138,8 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 
 	@Override
 	public IssueCategory select(int id) {
+		log.debug("select() > select issue category info of a user");
+		
 		IssueCategory category = new IssueCategory();
 		try{
 			String query = "SELECT * FROM issue_category WHERE id = ?";
@@ -147,9 +163,10 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 					return null;
 			} catch (SQLException e) {
 				e.printStackTrace();
+				log.error("Unable to set all issue category info from authority table ", e);
 			}
 		}catch (Exception e) {
-			
+			log.error("Unable to select issue category info from authority table ", e);
 		}finally {
 			db.closeConnection();
 		}
