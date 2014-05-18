@@ -25,7 +25,7 @@ public class EchoDaoImpl implements EchoDao {
 	public void insertEcho(Echo echo) {
 		log.debug("insertEcho() > insert echo in the database");
 		try {
-			String query = "INSERT INTO ECHO (version, createdDate, lastModifiedDate, "
+			String query = "INSERT INTO echo (version, createdDate, lastModifiedDate, "
 					+ "accuracy, address, echo, timeStamp, altitude, anonymous, geoLocation,"
 					+ " geoTimeStamp, latitude, longitude)"
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -51,9 +51,10 @@ public class EchoDaoImpl implements EchoDao {
 				preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.error("Unable to prepare statement for inserting echo", e);
 			}
 		} catch (Exception e) {
-
+			log.error("Unable to insert echo in database", e);
 		} finally {
 			db.closeConnection();
 		}
@@ -62,10 +63,9 @@ public class EchoDaoImpl implements EchoDao {
 	@Override
 	public List<Echo> getAllEcho() {
 		log.debug("getAllEcho() > get all the echo of user from database");
-		
-		String query = "SELECT * FROM ECHO";
 		List<Echo> list = new ArrayList<Echo>();
 		try {
+			String query = "SELECT * FROM echo";
 			try {
 				Statement statement = connection.createStatement();
 				ResultSet rs = statement.executeQuery(query);
@@ -90,9 +90,10 @@ public class EchoDaoImpl implements EchoDao {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				log.error("Unable to get All echo info", e);
 			}
 		} catch (Exception e) {
-
+			log.error("Unable to select all echo", e);
 		} finally {
 			db.closeConnection();
 		}
@@ -103,7 +104,7 @@ public class EchoDaoImpl implements EchoDao {
 	public void deleteEcho(String text) {
 		log.debug("deleteEcho() > delete echo from the database");
 		try {
-				String query = "DELETE FROM ECHO WHERE echo = ?";
+				String query = "DELETE FROM echo WHERE echo = ?";
 				PreparedStatement preparedStatement = null;
 				try {
 					preparedStatement = connection.prepareStatement(query);
@@ -111,9 +112,10 @@ public class EchoDaoImpl implements EchoDao {
 					preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.error("Unable to prepare statement for delete in echo", e);
 			}
 		} catch (Exception e) {
-
+			log.error("Unable to delete echo", e);
 		} finally {
 			db.closeConnection();
 		}
@@ -124,7 +126,7 @@ public class EchoDaoImpl implements EchoDao {
 	public void updateEcho(Echo echo, String text) {
 		log.debug("updateEcho() > edit echo in the database");
 		try {
-			String query = "UPDATE USER SET version = ?, "
+			String query = "UPDATE echo SET version = ?, "
 					+ "createdDate = ?, lastModifiedDate = ?, "
 					+ "accuracy = ?, address = ?, echo = ?,"
 					+ " timeStamp = ?, altitude = ?,anonymous = ?, geoLocation = ?, "
@@ -151,9 +153,10 @@ public class EchoDaoImpl implements EchoDao {
 				preparedStatement.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				log.error("Unable to prepare statement for update", e);
 			}
 		} catch (Exception e) {
-
+			log.error("Unable to update in echo", e);
 		} finally {
 			db.closeConnection();
 		}
@@ -166,7 +169,7 @@ public class EchoDaoImpl implements EchoDao {
 		
 		Echo echo = new Echo();
 		try {
-			String query = "SELECT * FROM ECHO WHERE echo = ?";
+			String query = "SELECT * FROM echo WHERE echo = ?";
 			PreparedStatement preparedStatement = null;
 			try {
 				preparedStatement = connection.prepareStatement(query);
@@ -195,9 +198,10 @@ public class EchoDaoImpl implements EchoDao {
 					return null;
 			} catch (SQLException e) {
 				e.printStackTrace();
+				log.error("Unable to get an echo info", e);
 			}
 		} catch (Exception e) {
-
+			log.error("Unable to select an echo", e);
 		} finally {
 			db.closeConnection();
 		}
