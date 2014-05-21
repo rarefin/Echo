@@ -34,20 +34,10 @@ p.ex {color:rgb(0,0,255);}
 </div>
 
 </td></tr>
-
-<form method="post" action="">
-<tr><td  align="center" style="width:700px; height:168px;">
-<br></br><br></br>
-<label>Old Password</label> <input type="text" name="oldPassword" id="oldPassword"><br> </br>
-<label>New Password</label> <input type="text" name="newPassword" id="newPassword"><br> </br>
-<label>Re-Type New </label> <input type="text" name="reTypePassword" id="reTypePassword"><br> </br>
-
-<div align="center" style="height:43px; width:660px;">
-<input type="submit" value="Submit" accept="image/*" style="height:43px; width:80px">
-<img src="#"width="80px;" height="43px;" id="img_prev" align="left"/>
-</form>
-</div>
+<tr><td  style="width:700px; height:40px;">
+<h1 style="font-style:italic; font-weight:bold;">My Echos</h1>
 </td></tr>
+
 </table>
 <body>
 </body>

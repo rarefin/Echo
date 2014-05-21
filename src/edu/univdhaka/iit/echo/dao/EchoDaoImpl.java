@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.univdhaka.iit.echo.domain.Echo;
+import edu.univdhaka.iit.echo.domain.UserAccount;
 
 public class EchoDaoImpl implements EchoDao {
 
@@ -22,13 +23,13 @@ public class EchoDaoImpl implements EchoDao {
 	Connection connection = db.openConnection();
 
 	@Override
-	public void insertEcho(Echo echo) {
+	public void insertEcho(Echo echo, UserAccount user) {
 		log.debug("insertEcho() > insert echo in the database");
 		try {
 			String query = "INSERT INTO echo (version, createdDate, lastModifiedDate, "
 					+ "accuracy, address, echo, timeStamp, altitude, anonymous, geoLocation,"
-					+ " geoTimeStamp, latitude, longitude)"
-					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ " geoTimeStamp, latitude, longitude, createdBy_id)"
+					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedStatement = null;
 			try {
@@ -47,6 +48,7 @@ public class EchoDaoImpl implements EchoDao {
 				preparedStatement.setDate(11, echo.getGeoTimeStamp());
 				preparedStatement.setDouble(12, echo.getLatitude());
 				preparedStatement.setDouble(13, echo.getLongitude());
+				preparedStatement.setInt(14, new UserDaoImpl().findByUserName(user.getUserName()).getId());
 				
 				preparedStatement.execute();
 			} catch (Exception e) {

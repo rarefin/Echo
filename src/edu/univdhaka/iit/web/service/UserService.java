@@ -8,6 +8,6 @@ public interface UserService {
 	
 	boolean checkAccount(UserAccount user);
 	
-	boolean checkOldPassword(UserAccount user);
+	boolean checkOldPassword(UserAccount user, String oldPassword);
 
 }

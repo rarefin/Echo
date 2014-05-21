@@ -46,12 +46,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkOldPassword(UserAccount user) {
+	public boolean checkOldPassword(UserAccount user, String oldPassword) {
 		log.debug("checkOldPassword()-> check if the old password is correct or not");
 
 		UserAccount verifiedUser = userDao.findByUserName(user.getUserName());
 		
-		if (verifiedUser.getPassword().equals(user.getPassword())) {
+		if (oldPassword.equals(verifiedUser.getPassword())) {
 			return true;
 		}
 

@@ -2,73 +2,55 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<style type="text/css">
-#menuBar form div {
+<style>
+body {
+background-image:url("http://www.westvalleyaquatics.com/css/pro/cust_stock_bg/twist_green.jpg");
+}
+.container h1 {
 	font-family: Verdana, Geneva, sans-serif;
 }
-#menuBar form div {
-	font-family: Tahoma, Geneva, sans-serif;
-}
-#menuBar form div {
-	font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
-}
-#menuBar form div {
-	font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
-}
-#container #olderEcho p label div b {
-	font-style: italic;
-}
-#container #shiwPost pre label b {
-	font-weight: bold;
-}
-#container #shiwPost pre label b {
-	font-size: 36;
-}
-#container #shiwPost pre label b {
-	font-weight: normal;
-}
+
 </style>
+<style>
+h1 {text-shadow:4px 4px 8px #99CC33;}
+h1 {color:#000;}
+p.ex {color:rgb(0,0,255);}
+</style>
+<table  cellspacing="0" cellpadding="0" align="center" style="background-color:#FF9"><tr><td  style="width:700px; height:100px;"><h1 align="center" style="margin-top:; font-weight: bold;text-shadow: ">ECHO</h1>
+<p align="center" style="margine-bottom: 0; font-weight: bold; color:#360"><marquee scrolldelay="100">::::This web site allows you to post message called Echo::::</marquee></td></tr></p>
+<tr><td  style="width:700px; height:45px;">
+
+
+<div id="ButtonBar" style="text-align:center;width:700px;height:40px; background-color:#000">
+
+<form action="">
+<input type='button'  value=<%=session.getAttribute("userName")%> onclick="window.location.href='../Echo/home'"          style="height:40px; width:100px"/>
+<input type="button"  value="My Echos" 							 onclick="window.location.href='../Echo/myEchos'"        style="height:40px; width:80px">
+<input type="button"  value="Recent Echos" 						 onclick="window.location.href='../Echo/recentEchos'"    style="height:40px; width:120px">
+<input type="button"  value="Home" 								 onclick="window.location.href='../Echo/home'"           style="height:40px; width:80px">
+<input type="button"  value="ChangePassword" 					 onclick="window.location.href='../Echo/changePassword'" style="height:40px; width:130px">
+<input type="button"  value="Log out" 							 onclick="window.location.href='../Echo/logOut'"         style="height:40px; width:100px">
+</form>
+</div>
+
+</td></tr>
+<tr><td  style="width:700px; height:40px;">
+<h1 style="font-style:italic; font-weight:bold;">Post Echo</h1>
+</td></tr>
+<form method="post" action="">
+<tr><td  style="width:700px; height:168px;">
+<textarea name="echo" cols="50" rows="3">
+Enter your echo here...
+</textarea><br>
+Upload Photo: <br> <input type="file" name="image" /><br>
+<tr><td  style="width:663px; height:43px">
+<div align="center" style="height:43px; width:660px;">
+<input type="submit" value="Post" accept="image/*" style="height:43px; width:80px">
+<img src="#"width="80px;" height="43px;" id="img_prev" align="left"/>
+</form>
+</div>
+</td></tr>
+</table>
 <body>
-<div id="container" style="background-color:#FF6;width:1366px;
-height:700px">
-<div id = "header" style="background-color:#F30; width:1366px;height:140px">
-<h1 align="center" style="margine-bottom: 0; font-weight: bold;"><img src="../images.jpg" width="176" height="58">Echo.com</h1>
-<p align="center" style="margine-bottom: 0; font-weight: bold;">This web site allows you to post message called Echo</p>
-</div>
-
-<div id="menuBar" style="background-color:#FF9;width:1366px;height:25px">
-  <form name="form1" method="post" action="">
-    <div align="center">
-      <input type="submit" name="Home" id="Home" value="Home" style="background-color:#66C">
-      <input type="submit" name="Changepass" id="Changepass" value="Change Profile" style="background-color:#66C" >
-      <input type="submit" name="Mypost" id="Mypost" value="My Posts" style="background-color:#66C">
-      <input type="submit" name="Search Echo" id="Search Echo" value="Search Echo" style="background-color:#66C">
-      <input type="submit" name="LogOut" id="LogOut" value="LogOut" style="background-color:#66c">
-    </div>
-  </form>
-</div>
-<div id="showPost" style="background-color:#FC9; width:1300px;height:200px; font-size:40px;">
-  <pre><label><b>   Post Echo</b></label>       <input type="submit" name="post" id="post" value="Post" style="background-color:#36F">
-    <textarea name="ecchoPostArea" cols="45" rows="5"></textarea> 
-    Insert Image <span class="form-item"><img id="img_prev" src="#" alt="your image"/></span></pre> 
-</div>
-<div id="olderEcho" style="alignment-adjust: central; background-color:#FC6; width: 1366px; height: 650px; font-size: 36px;">
-<p>
-<label>
-  <div align="center"><b>Older ECHO</b> </label>
-  <pre> <img src="../Untitled.png" width="80" height="81"> <textarea name="echoByUser1" id="echoByUser1" cols="45" rows="4"> </textarea>
- 
- 
- <img src="../Untitled2.png" width="80" height="81"> <textarea name="echoByUser1" id="echoByUser1" cols="45" rows="4"> </textarea>
-
- 
- <img src="../Untitled.png" width="80" height="81"> <textarea name="echoByUser1" id="echoByUser1" cols="45" rows="4"> </textarea> 
- 
- 
- <img src="../Untitled2.png" width="80" height="81"> <textarea name="echoByUser1" id="echoByUser1" cols="45" rows="4"> </textarea> 
-  
-
-  </pre>
-</div>
 </body>
 </html>

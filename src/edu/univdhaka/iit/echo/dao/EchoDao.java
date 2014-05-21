@@ -3,10 +3,11 @@ package edu.univdhaka.iit.echo.dao;
 import java.util.List;
 
 import edu.univdhaka.iit.echo.domain.Echo;
+import edu.univdhaka.iit.echo.domain.UserAccount;
 
 public interface EchoDao {
 	
-	public void insertEcho(Echo echo);
+	public void insertEcho(Echo echo, UserAccount user);
 	
 	public List<Echo> getAllEcho();
 	

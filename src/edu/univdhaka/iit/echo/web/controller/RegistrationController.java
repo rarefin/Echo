@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,8 +67,8 @@ public class RegistrationController extends HttpServlet {
 		boolean hasAccount = userService.checkAccount(user);
 
 		if (hasAccount == false) {
-			// HttpSession session = request.getSession();
-			// session.setAttribute("authenticatedUser", authenticatedUser);
+			HttpSession session = req.getSession();
+			session.setAttribute("userName", user.getUserName());
 			userDao.insertUser(user);
 			resp.sendRedirect("home");
 		} else {

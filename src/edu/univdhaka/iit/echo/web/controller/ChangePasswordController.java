@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.univdhaka.iit.echo.dao.UserDao;
+import edu.univdhaka.iit.echo.dao.UserDaoImpl;
 import edu.univdhaka.iit.echo.domain.UserAccount;
 import edu.univdhaka.iit.web.service.UserService;
 import edu.univdhaka.iit.web.service.UserServiceImpl;
@@ -25,11 +28,13 @@ public class ChangePasswordController extends HttpServlet {
 			.getLogger(ChangePasswordController.class);
 
 	private UserService userService;
+	private UserDao userDao;
 
 	@Override
 	public void init() throws ServletException {
 		log.debug("init() > intialize all the services");
 		userService = new UserServiceImpl();
+		userDao = new UserDaoImpl();
 	}
 
 	@Override
@@ -49,14 +54,22 @@ public class ChangePasswordController extends HttpServlet {
 		log.debug("doPost()");
 
 		UserAccount user = new UserAccount();
-		user.setUserName(req.getParameter("userName"));
-		user.setPassword(req.getParameter("oldPassword"));
+		
+		String oldPassword = req.getParameter("oldPassword");
+		String newPassword = req.getParameter("newPassword");
+		String reTypePassword = req.getParameter("reTypePassword");
+		
+		HttpSession session = req.getSession();
+		user.setUserName((String) session.getAttribute("userName"));
+		user.setPassword(newPassword);
 
 		log.debug("doPost() -> user={}", user);
 
-		boolean passwordMatches = userService.checkOldPassword(user);
+		boolean passwordMatches = userService.checkOldPassword(user, oldPassword);
 
-		if (passwordMatches == true) {
+		if (passwordMatches == true && newPassword.equals(reTypePassword)) {
+			int id = userDao.findByUserName(user.getUserName()).getId();
+			userDao.updateUser(user, id);
 			resp.sendRedirect("home");
 		} else {
 			RequestDispatcher requestDispatcher = req

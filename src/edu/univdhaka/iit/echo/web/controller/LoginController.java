@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,12 +53,16 @@ public class LoginController extends HttpServlet {
 		user.setPassword(req.getParameter("password"));
 
 		log.debug("doPost() -> user={}", user);
-
+		
 		UserAccount authenticatedUser = userService.verifyUser(user);
 
 		if (authenticatedUser != null) {
-			// HttpSession session = request.getSession();
-			// session.setAttribute("authenticatedUser", authenticatedUser);
+			HttpSession session = req.getSession();
+			if (!session.isNew()) {
+			    session.invalidate();
+			    session = req.getSession();
+			}
+			session.setAttribute("userName", user.getUserName());
 			resp.sendRedirect("home");
 		} else {
 			RequestDispatcher requestDispatcher = req
