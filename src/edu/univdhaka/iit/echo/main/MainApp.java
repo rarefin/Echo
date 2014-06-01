@@ -59,7 +59,6 @@ public class MainApp {
 		user.setFirstName("Rifat");
 		user.setLastName("Arefin");
 		user.setEmailAddress("rifat_arefin007@yahoo.com");
-		user.setGender("Male");
 		user.setUserName("robin15");
 		user.setPassword("password");
 
@@ -82,7 +81,6 @@ public class MainApp {
 		user1.setFirstName("Rifat");
 		user1.setLastName("Arefin");
 		user1.setEmailAddress("rifat_arefin007@yahoo.com");
-		user1.setGender("Male");
 		user1.setUserName("robin15");
 		user1.setPassword("password");
 
@@ -100,7 +98,7 @@ public class MainApp {
 
 		dat.insertUser(user);
 		dat.insertUser(user1);
-		System.out.println(dat.getAllUserInfo());
+		System.out.println(dat.getAllUser());
 		
 
 	}

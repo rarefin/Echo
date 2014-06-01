@@ -1,54 +1,109 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<fmt:setLocale value="en" />
+<fmt:setBundle basename="messages" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<style>
-body {
-background-image:url("http://www.westvalleyaquatics.com/css/pro/cust_stock_bg/twist_green.jpg");
-}
-.container h1 {
-	font-family: Verdana, Geneva, sans-serif;
-}
+<head>
+<title>change Password</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function()
 
-</style>
-<style>
-h1 {text-shadow:4px 4px 8px #99CC33;}
-h1 {color:#000;}
-p.ex {color:rgb(0,0,255);}
-</style>
-<table  cellspacing="0" cellpadding="0" align="center" style="background-color:#FF9"><tr><td  style="width:700px; height:100px;"><h1 align="center" style="margin-top:; font-weight: bold;text-shadow: ">ECHO</h1>
-<p align="center" style="margine-bottom: 0; font-weight: bold; color:#360"><marquee scrolldelay="100">::::This web site allows you to post message called Echo::::</marquee></td></tr></p>
-<tr><td  style="width:700px; height:45px;">
-
-
-<div id="ButtonBar" style="text-align:center;width:700px;height:40px; background-color:#000">
-
-<form action="">
-<input type='button'  value=<%=session.getAttribute("userName")%> onclick="window.location.href='../Echo/home'"          style="height:40px; width:100px"/>
-<input type="button"  value="My Echos" 							 onclick="window.location.href='../Echo/myEchos'"        style="height:40px; width:80px">
-<input type="button"  value="Recent Echos" 						 onclick="window.location.href='../Echo/recentEchos'"    style="height:40px; width:120px">
-<input type="button"  value="Home" 								 onclick="window.location.href='../Echo/home'"           style="height:40px; width:80px">
-<input type="button"  value="ChangePassword" 					 onclick="window.location.href='../Echo/changePassword'" style="height:40px; width:130px">
-<input type="button"  value="Log out" 							 onclick="window.location.href='../Echo/logOut'"         style="height:40px; width:100px">
-</form>
-</div>
-
-</td></tr>
-
-<form method="post" action="">
-<tr><td  align="center" style="width:700px; height:168px;">
-<br></br><br></br>
-<label>Old Password</label> <input type="text" name="oldPassword" id="oldPassword"><br> </br>
-<label>New Password</label> <input type="text" name="newPassword" id="newPassword"><br> </br>
-<label>Re-Type New </label> <input type="text" name="reTypePassword" id="reTypePassword"><br> </br>
-
-<div align="center" style="height:43px; width:660px;">
-<input type="submit" value="Submit" accept="image/*" style="height:43px; width:80px">
-<img src="#"width="80px;" height="43px;" id="img_prev" align="left"/>
-</form>
-</div>
-</td></tr>
-</table>
+	{
+		var i = 1000;
+		while (i > 0) {
+			$("#E").css("color", "#306").fadeOut(2000).fadeIn(2000);
+			$("#C").css("color", "#306").fadeOut(2000).fadeIn(2000);
+			$("#H").css("color", "#306").fadeOut(2000).fadeIn(2000);
+			$("#O").css("color", "#306").fadeOut(2000).fadeIn(2000);
+			i = i - 1;
+		}
+	});
+</script>
+<link rel="stylesheet" type="text/css" href="styleSheet.css">
+</head>
 <body>
+	<div id="grad1" align="center">
+		<label id="E" style="font-size: 30px;">E</label> <label id="C"
+			style="font-size: 20px">C</label> <label id="H"
+			style="font-size: 20px">H</label> <label id="O"
+			style="font-size: 20px">O</label>
+
+		<div id="grad1">
+			<table align="center">
+				<tr>
+					<td align="center">
+						<table align="center">
+							<tr>
+								<td align="center">
+									<div id="cssmenu">
+										<ul>
+											<li><a href="../Echo/myEchos"><%=session.getAttribute("userName")%></a></li>
+											<li><a href="../Echo/home"><span>Home</span></a></li>
+											<li><a href="../Echo/postEcho"><span>Post
+														Echo</span></a></li>
+											<li><a href="../Echo/changePassword"><span>change
+														password</span></a></li>
+											<li><a href="../Echo/deleteAccount?action=deleteAccount"
+												onclick="return confirm('Are you sure you want to delete your account?')"><span>Delete
+														Account</span></a></li>
+											<li class="last"><a href="../Echo/logOut"><span>sign
+														out</span></a></li>
+										</ul>
+									</div>
+									<div id="grad2"></div>
+							</tr>
+							</td>
+						</table> <br>
+					<br> <%
+ 	Object uid = session.getAttribute("userName");
+ 	if (uid == null) {
+ 		String redirectURL = "http://localhost:8080/Echo/login";
+ 		response.sendRedirect(redirectURL);
+ 	}
+ %>
+						<form name="changePassword" method="post" action="">
+							<c:if test="${fn:length(error) > 0 }">
+								<div class="span6 well text-error"
+									style="color: red; font-style: italic;">
+									<c:forEach items="${error}" var="entry">
+                        ${entry.value}<br>
+									</c:forEach>
+								</div>
+							</c:if>
+							<br>
+							<br>
+
+							<table>
+								<tr>
+									<td>Enter Old Password</td>
+									<td><input type="password" name="oldPassword"
+										id="oldPassword" placeholder="Old password"></td>
+								</tr>
+								<tr>
+								<tr>
+									<td>Enter New Password</td>
+									<td><input type="password" name="newPassword"
+										id="newPassword" placeholder="New password"></td>
+								</tr>
+								<tr>
+									<td>Re-Enter New Password</td>
+									<td><input type="password" name="reTypePassword"
+										id="reTypePassword" placeholder="Re-enter password"></td>
+								</tr>
+							</table>
+							<br>
+							<input type="submit" class="button" value="DONE"> <br></br>
+							<br>
+							
+						</form>
+					</td>
+					</div>
 </body>
 </html>

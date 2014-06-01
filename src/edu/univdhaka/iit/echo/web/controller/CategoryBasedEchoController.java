@@ -3,14 +3,12 @@ package edu.univdhaka.iit.echo.web.controller;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,17 +19,19 @@ import edu.univdhaka.iit.echo.dao.PhotoDao;
 import edu.univdhaka.iit.echo.dao.PhotoDaoImpl;
 import edu.univdhaka.iit.echo.domain.Echo;
 
+
 /**
- * Servlet implementation class MyEchoController....This class helps to view all posted
- * echos of a user
+ * This servlet controls the category based echos...this servlet helps to fetch all echo of a particular
+ * category from database using Dao to show it on the web page
+ *
  */
-@WebServlet("/myEchos")
-public class MyEchoController extends HttpServlet {
+@WebServlet("/categoryBasedEcho")
+public class CategoryBasedEchoController extends HttpServlet {
 
 	private static final long serialVersionUID = 7429250758571675333L;
 
 	private static final Logger log = LoggerFactory
-			.getLogger(MyEchoController.class);
+			.getLogger(CategoryBasedEchoController.class);
 	EchoDao echoDao = new EchoDaoImpl();
 	PhotoDao photoDao = new PhotoDaoImpl();
 
@@ -40,22 +40,31 @@ public class MyEchoController extends HttpServlet {
 		log.debug("doGet() -> supposed to return to user's psted echos's page");
 
 		RequestDispatcher requestDispatcher = req
-				.getRequestDispatcher("/WEB-INF/jsp/myEchos.jsp");
+				.getRequestDispatcher("/WEB-INF/jsp/categoryBasedEcho.jsp");
 		
-		HttpSession session = req.getSession();
-		String userName = ((String) session.getAttribute("userName"));
+		String issueCategory = req.getParameter("issueCategory");
+		System.out.println("Issue category: " + issueCategory);
 		
-		// Fetching the echos of a user from database to view it on web page
-		List<Echo> list = echoDao.findEchoByUserName(userName);
+		// finding the category based echo from database
+		List<Echo> list = echoDao.findEchoByIssueCategory(issueCategory);
 		Collections.reverse(list);
-			
+		
+		// if an user select the Anonymous his user name will be hidden
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).isAnonymous()==true) {
+				list.get(i).setUserName("Annonymous");
+			}
+		}
+		
 		for(int i=0; i<list.size(); i++){
 			System.out.println(list.get(i).getEcho());
 		}
-		// sending echo to the my echo page
-		req.setAttribute("myEchos", list);
+		// sending the echo of a selected category to web page
+		req.setAttribute("categoryBasedEchos", list);
 
 		requestDispatcher.forward(req, resp);
+		
+		log.debug("doGet() -> category based echo shown on web page");
 
 	}
 }

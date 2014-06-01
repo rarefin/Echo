@@ -1,6 +1,5 @@
 package edu.univdhaka.iit.echo.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import edu.univdhaka.iit.echo.domain.Echo;
@@ -16,7 +15,7 @@ public class EchoServiceImpl implements EchoService{
         Echo echo = new Echo();
         echo.setId(EchoFactory.getGeneratedTweetId());
         echo.setEcho(postedText);
-        echo.setGeoTimeStamp(new Date(0));
+        //echo.setGeoTimeStamp(new Date(0));
         echo.setPostedBy(postedBy);
 
         EchoFactory.getEchoList().add(echo);

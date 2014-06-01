@@ -12,13 +12,8 @@ public class UserDaoImplTest {
 	
 	private static final int ID = 1; 
 	private static final int VERSION = 0;
-	private static final boolean ACCOUNTNONEXPIRED = true;
-	private static final boolean ACCOUNTNONLOCKED = true;
-	private static final boolean ENABLED = true;
-	private static final boolean CREDENTIALSNONEXPIRED = false;
 	private static final String FIRST_NAME = "Rifat";
 	private static final String LAST_NAME = "Arefin";
-	private static final String GENDER = "Male";
 	private static final String EMAIL = "rifat.arefin@hotmail.com";
 	private static final String USER_NAME = "robin";
 	private static final String PASSWORD = "password";
@@ -37,14 +32,9 @@ public class UserDaoImplTest {
 		user.setVersion(VERSION);
 		user.setFirstName(FIRST_NAME);
 		user.setLastName(LAST_NAME);
-		user.setGender(GENDER);
 		user.setEmailAddress(EMAIL);
 		user.setUserName(USER_NAME);
 		user.setPassword(PASSWORD);
-		user.setAccountNonExpired(ACCOUNTNONEXPIRED);
-		user.setAccountNonLocked(ACCOUNTNONLOCKED);
-		user.setEnabled(ENABLED);
-		user.setCredentialsNonExpired(CREDENTIALSNONEXPIRED);
 
 		userDao.insertUser(user);
 		
@@ -56,14 +46,9 @@ public class UserDaoImplTest {
 		Assert.assertEquals(VERSION, userInfo.getVersion());
 		Assert.assertEquals(FIRST_NAME, userInfo.getFirstName());
 		Assert.assertEquals(LAST_NAME, userInfo.getLastName());
-		Assert.assertEquals(GENDER, userInfo.getGender());
 		Assert.assertEquals(EMAIL, userInfo.getEmailAddress());
 		Assert.assertEquals(USER_NAME, userInfo.getUserName());
 		Assert.assertEquals(PASSWORD, userInfo.getPassword());
-		Assert.assertEquals(ACCOUNTNONEXPIRED, userInfo.isAccountNonExpired());
-		Assert.assertEquals(ACCOUNTNONLOCKED, userInfo.isAccountNonLocked());
-		Assert.assertEquals(ENABLED, userInfo.isEnabled());
-		Assert.assertEquals(CREDENTIALSNONEXPIRED, userInfo.isCredentialsNonExpired());
 	
 	}
 	
@@ -84,16 +69,11 @@ public class UserDaoImplTest {
 		user.setVersion(VERSION);
 		user.setFirstName(FIRST_NAME);
 		user.setLastName(LAST_NAME);
-		user.setGender(GENDER);
 		user.setEmailAddress(EMAIL);
 		user.setUserName(USER_NAME);
 		user.setPassword(PASSWORD);
-		user.setAccountNonExpired(ACCOUNTNONEXPIRED);
-		user.setAccountNonLocked(ACCOUNTNONLOCKED);
-		user.setEnabled(ENABLED);
-		user.setCredentialsNonExpired(CREDENTIALSNONEXPIRED);
 
-		userDao.updateUser(user, ID);
+		userDao.updateUser(user, USER_NAME);
 		
 		//Check By Asserting
 		UserAccount userInfo = userDao.findByUserName("robin");
@@ -103,14 +83,9 @@ public class UserDaoImplTest {
 		Assert.assertEquals(VERSION, userInfo.getVersion());
 		Assert.assertEquals(FIRST_NAME, userInfo.getFirstName());
 		Assert.assertEquals(LAST_NAME, userInfo.getLastName());
-		Assert.assertEquals(GENDER, userInfo.getGender());
 		Assert.assertEquals(EMAIL, userInfo.getEmailAddress());
 		Assert.assertEquals(USER_NAME, userInfo.getUserName());
 		Assert.assertEquals(PASSWORD, userInfo.getPassword());
-		Assert.assertEquals(ACCOUNTNONEXPIRED, userInfo.isAccountNonExpired());
-		Assert.assertEquals(ACCOUNTNONLOCKED, userInfo.isAccountNonLocked());
-		Assert.assertEquals(ENABLED, userInfo.isEnabled());
-		Assert.assertEquals(CREDENTIALSNONEXPIRED, userInfo.isCredentialsNonExpired());
 	}
 
 	@Test
@@ -122,14 +97,9 @@ public class UserDaoImplTest {
 		Assert.assertEquals(VERSION, userInfo.getVersion());
 		Assert.assertEquals(FIRST_NAME, userInfo.getFirstName());
 		Assert.assertEquals(LAST_NAME, userInfo.getLastName());
-		Assert.assertEquals(GENDER, userInfo.getGender());
 		Assert.assertEquals(EMAIL, userInfo.getEmailAddress());
 		Assert.assertEquals(USER_NAME, userInfo.getUserName());
 		Assert.assertEquals(PASSWORD, userInfo.getPassword());
-		Assert.assertEquals(ACCOUNTNONEXPIRED, userInfo.isAccountNonExpired());
-		Assert.assertEquals(ACCOUNTNONLOCKED, userInfo.isAccountNonLocked());
-		Assert.assertEquals(ENABLED, userInfo.isEnabled());
-		Assert.assertEquals(CREDENTIALSNONEXPIRED, userInfo.isCredentialsNonExpired());
 	}
 
 	@Test
@@ -141,15 +111,9 @@ public class UserDaoImplTest {
 		Assert.assertEquals(VERSION, userInfo.getVersion());
 		Assert.assertEquals(FIRST_NAME, userInfo.getFirstName());
 		Assert.assertEquals(LAST_NAME, userInfo.getLastName());
-		Assert.assertEquals(GENDER, userInfo.getGender());
 		Assert.assertEquals(EMAIL, userInfo.getEmailAddress());
 		Assert.assertEquals(USER_NAME, userInfo.getUserName());
 		Assert.assertEquals(PASSWORD, userInfo.getPassword());
-		Assert.assertEquals(ACCOUNTNONEXPIRED, userInfo.isAccountNonExpired());
-		Assert.assertEquals(ACCOUNTNONLOCKED, userInfo.isAccountNonLocked());
-		Assert.assertEquals(ENABLED, userInfo.isEnabled());
-		Assert.assertEquals(CREDENTIALSNONEXPIRED, userInfo.isCredentialsNonExpired());
-		
 	}
 
 	/*@Test

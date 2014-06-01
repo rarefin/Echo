@@ -5,16 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.univdhaka.iit.echo.domain.Authority;
-import edu.univdhaka.iit.echo.domain.IssueCategory;
+import edu.univdhaka.iit.echo.SuportMethods.Converter;
 import edu.univdhaka.iit.echo.domain.Photo;
-import edu.univdhaka.iit.echo.domain.UserAccount;
 
+/**
+ * @author robin
+ *This class implements the PhotoDao interface
+ */
 public class PhotoDaoImpl implements PhotoDao {
 	private static final Logger log = LoggerFactory
 			.getLogger(PhotoDaoImpl.class);
@@ -22,22 +25,31 @@ public class PhotoDaoImpl implements PhotoDao {
 	DatabaseConnector db = new DatabaseConnector();
 	Connection connection = db.openConnection();
 
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.PhotoDao#insertPhoto(edu.univdhaka.iit.echo.domain.Photo, int)
+	 * this method helps to insert photo information in the 'photo' table related to a particular echo.
+	 *  it's parameters  are Photo object echo id.... echo id is the reference to this photo object 
+	 * in the 'photo' table.....
+	 */
 	@Override
-	public void insert(Photo photo) {
+	public void insertPhoto(Photo photo, int echoId) {
 		log.debug("insert() > insert photo in the database");
 
 		try {
-			String query = "INSERT INTO photo (version, thumbnail, original, contentType)"
-					+ "VALUES(?, ?, ?, ?)";
+			String query = "INSERT INTO photo (version, postedBy,  original, contentType, createdBy_id, echo_id)"
+					+ "VALUES(?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedStatement = null;
 			try {
 				preparedStatement = connection.prepareStatement(query);
 
 				preparedStatement.setInt(1, photo.getVersion());
-				preparedStatement.setBlob(2, photo.getThumbnail());
-				preparedStatement.setBlob(3, photo.getOriginal());
+				preparedStatement.setString(2, photo.getPostedBy().getUserName());
+				//preparedStatement.setBlob(3, Converter.inputStreamFromByteArray(photo.getThumbnail()));
+				preparedStatement.setBlob(3, Converter.inputStreamFromByteArray(photo.getOriginal()));
 				preparedStatement.setString(4, photo.getContentType());
+				preparedStatement.setInt(5, photo.getPostedBy().getId());
+				preparedStatement.setInt(6, echoId);
 
 				preparedStatement.execute();
 			} catch (Exception e) {
@@ -51,21 +63,55 @@ public class PhotoDaoImpl implements PhotoDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.PhotoDao#getAllPhoto()
+	 * this method helps to get all photo from photo table
+	 */
 	@Override
-	public List<Photo> getAllPhotoInfo() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Photo> getAllPhoto() {
+		log.debug("getAllPhoto() > get all photo from photo table");
+		String query = "SELECT * FROM photo";
+		List<Photo> list = new ArrayList<Photo>();
+		try {
+			try {
+				Statement statement = connection.createStatement();
+				ResultSet rs = statement.executeQuery(query);
+				while (rs.next()) {
+					Photo photo = new Photo();
+					
+					photo.setId(rs.getInt("id"));
+					photo.setVersion(rs.getInt("version"));
+					photo.setThumbnail(rs.getBlob("thumbnail").getBytes(1, (int)rs.getBlob("thumbnail").length()));
+					photo.setOriginal(rs.getBlob("original").getBytes(1, (int)rs.getBlob("original").length()));
+					photo.setContentType(rs.getString("contentType"));
+			
+					list.add(photo);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}catch (Exception e) {
+			
+		}finally{
+			db.closeConnection();
+		}
+		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.PhotoDao#deletePhoto(int)
+	 * this method helps to delete photo using the reference of echo id...deleted photo
+	 * is related to that echo id....
+	 */
 	@Override
-	public void delete(int id) {
+	public void deletePhoto(int echoId) {
 		log.debug("delete() > delete photo");
 		try {
-			String query = "DELETE FROM photo WHERE id = ?";
+			String query = "DELETE FROM photo WHERE echo_id = ?";
 			PreparedStatement preparedStatement = null;
 			try {
 				preparedStatement = connection.prepareStatement(query);
-				preparedStatement.setInt(1, id);
+				preparedStatement.setInt(1, echoId);
 				preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -79,8 +125,12 @@ public class PhotoDaoImpl implements PhotoDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.PhotoDao#updatePhoto(edu.univdhaka.iit.echo.domain.Photo, int)
+	 * this method helps to update photo object using photo id
+	 */
 	@Override
-	public void update(Photo photo, int id) {
+	public void updatePhoto(Photo photo, int id) {
 		log.debug("upadte() > edit photo info");
 
 		try {
@@ -92,8 +142,8 @@ public class PhotoDaoImpl implements PhotoDao {
 				preparedStatement = connection.prepareStatement(query);
 
 				preparedStatement.setInt(1, photo.getVersion());
-				preparedStatement.setBlob(2, photo.getThumbnail());
-				preparedStatement.setBlob(3, photo.getOriginal());
+				preparedStatement.setBlob(2, Converter.inputStreamFromByteArray(photo.getThumbnail()));
+				preparedStatement.setBlob(3, Converter.inputStreamFromByteArray(photo.getOriginal()));
 				preparedStatement.setString(4, photo.getContentType());
 
 				preparedStatement.executeUpdate();
@@ -110,25 +160,31 @@ public class PhotoDaoImpl implements PhotoDao {
 
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.PhotoDao#selectPhoto(int)
+	 * this method helps to select photo a photo using echo id.... selected photo
+	 * is related to that echo
+	 */
 	@Override
-	public Photo select(int id) {
+	public Photo selectPhoto(int echoId) {
 		log.debug("select() > select photo");
 
 		Photo photo = new Photo();
 		try {
-			String query = "SELECT * FROM photo WHERE id = ?";
+			String query = "SELECT * FROM photo WHERE echo_id = ?";
 			PreparedStatement preparedStatement = null;
 			try {
 				preparedStatement = connection.prepareStatement(query);
-				preparedStatement.setInt(1, id);
+				preparedStatement.setInt(1, echoId);
 				ResultSet rs = preparedStatement.executeQuery();
 				boolean flag = false;
 				while (rs.next()) {
 					flag = true;
 					photo.setId(rs.getInt("id"));
 					photo.setVersion(rs.getInt("version"));
-					photo.setThumbnail(rs.getBlob("thumbnail"));
-					photo.setOriginal(rs.getBlob("original"));
+					//photo.setThumbnail(rs.getBlob("thumbnail").getBytes(1, (int)rs.getBlob("thumbnail").length()));
+					photo.setOriginal(rs.getBlob("original").getBytes(1, (int)rs.getBlob("original").length()));
 					photo.setContentType(rs.getString("contentType"));
 				}
 				if (!flag)

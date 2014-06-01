@@ -14,7 +14,7 @@ public class IssueCategoryDaoImplTest {
 
 	private static final int ID = 5;
 	private static final int VERSION = 0;
-	private static final Date CREATEDDATE = null;
+	private static final String CREATEDDATE = null;
 	private static final Date LASTMODIFIEDDATE = null;
 	private static final boolean IS_NEW = true;
 	private static final String TITLE = "something";
@@ -36,7 +36,7 @@ public class IssueCategoryDaoImplTest {
 		issueCategory.setNew(IS_NEW);
 		issueCategory.setTitle(TITLE);
 
-		issueCategoryDao.insert(issueCategory);
+		issueCategoryDao.insert(issueCategory, 10);
 
 		// Check by asserting
 		IssueCategory newCategory = issueCategoryDao.select(ID);

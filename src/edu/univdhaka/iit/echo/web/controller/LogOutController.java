@@ -1,7 +1,6 @@
 package edu.univdhaka.iit.echo.web.controller;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Servlet implementation class LogoutController....This class helps to log out
+ * and redirect to login page
+ */
 @WebServlet("/logOut")
 public class LogOutController extends HttpServlet {
 
@@ -23,6 +26,7 @@ public class LogOutController extends HttpServlet {
 			throws ServletException, IOException {
 		log.debug("doGet() -> supposed to return home page");
 		
+		// invalidate the session then go to the login page
 		req.getSession().invalidate();
 		resp.sendRedirect("login");
 		

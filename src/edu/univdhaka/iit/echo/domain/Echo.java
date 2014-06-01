@@ -4,18 +4,30 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
+/**
+ * this class contains the attributes related to posted text called echo.
+ *
+ */
 public class Echo extends PersistentObject implements Serializable {
 
 	private int id;
 	private int version;
 
+	private String userName;
 	private String echo;
 	private UserAccount postedBy;
-	private IssueCategory issueCategory;
+	private String issueCategory;
 	private Set<Tag> tags;
-	private Set<Photo> photos;
+	private Photo photo;
 	private String address;
 	private Date timeStamp;
+
+	public Date getTimeStamp() {
+		return timeStamp;
+	}
+	public void setTimeStamp(Date timeStamp) {
+		this.timeStamp = timeStamp;
+	}
 
 
 	public int getId() {
@@ -58,12 +70,12 @@ public class Echo extends PersistentObject implements Serializable {
 	}
 
 
-	public IssueCategory getIssueCategory() {
+	public String getIssueCategory() {
 		return issueCategory;
 	}
 
 
-	public void setIssueCategory(IssueCategory issueCategory) {
+	public void setIssueCategory(String issueCategory) {
 		this.issueCategory = issueCategory;
 	}
 
@@ -77,17 +89,6 @@ public class Echo extends PersistentObject implements Serializable {
 		this.tags = tags;
 	}
 
-
-	public Set<Photo> getPhotos() {
-		return photos;
-	}
-
-
-	public void setPhotos(Set<Photo> photos) {
-		this.photos = photos;
-	}
-
-
 	public String getAddress() {
 		return address;
 	}
@@ -95,16 +96,6 @@ public class Echo extends PersistentObject implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-
-	public Date getTimeStamp() {
-		return timeStamp;
-	}
-
-
-	public void setTimeStamp(Date timeStamp) {
-		this.timeStamp = timeStamp;
 	}
 
 
@@ -158,13 +149,13 @@ public class Echo extends PersistentObject implements Serializable {
 	}
 
 
-	public Date getGeoTimeStamp() {
+	public String getGeoTimeStamp() {
 		return geoTimeStamp;
 	}
 
 
-	public void setGeoTimeStamp(Date geoTimeStamp) {
-		this.geoTimeStamp = geoTimeStamp;
+	public void setGeoTimeStamp(String string) {
+		this.geoTimeStamp = string;
 	}
 
 
@@ -183,8 +174,9 @@ public class Echo extends PersistentObject implements Serializable {
 	private double latitude;
 	private double accuracy;
 	private double altitude;
+	private double speed;
 	private String geoLocation;
-	private Date geoTimeStamp;
+	private String geoTimeStamp;
 
 	private boolean anonymous;
 
@@ -194,5 +186,31 @@ public class Echo extends PersistentObject implements Serializable {
 		return "Echo{" + "id=" + id + ", postedText='" + echo + '\''
 				+ ", timestamp=" + geoTimeStamp + ", postedBy=" + postedBy
 				+ '}';
+	}
+
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
+
+
+	public double getSpeed() {
+		return speed;
+	}
+
+
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

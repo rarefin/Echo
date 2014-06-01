@@ -1,0 +1,217 @@
+@import url(http://fonts.googleapis.com/css?family=Capriola);
+	/* Let's import the lovely google font, please keep this line at the top of your stylesheet */
+	/* Menu CSS */
+#cssmenu,#cssmenu ul,#cssmenu ul li,#cssmenu ul li a {
+	padding: 0;
+	margin: 0;
+	line-height: 1;
+	font-family: 'Capriola', sans-serif;
+}
+
+#cssmenu:before,#cssmenu:after,#cssmenu>ul:before,#cssmenu>ul:after {
+	content: '';
+	display: table;
+}
+
+#cssmenu:after,#cssmenu>ul:after {
+	clear: both;
+}
+
+#cssmenu {
+	zoom: 1;
+	height: 69px;
+	background: url(bottom-bg.png) repeat-x center bottom;
+	border-radius: 2px;
+	width:auto;
+}
+
+#cssmenu ul {
+	background: url(nav-bg.png) repeat-x 0px 4px;
+	height: 69px;
+	width
+}
+
+#cssmenu ul li {
+	float: left;
+	list-style: none;
+}
+
+#cssmenu ul li a {
+	display: block;
+	height: 37px;
+	width:100px;
+	padding: 22px 30px 0;
+	margin: 4px 2px 0;
+	border-radius: 2px 2px 0 0;
+	text-decoration: none;
+	font-size: 15px;
+	color: white;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+	font-weight: 400;
+	opacity: .9;
+}
+
+#cssmenu ul li:first-child a {
+	margin: 4px 2px 0 0;
+}
+
+#cssmenu ul li a:hover,#cssmenu ul li.active a {
+	background: url(color.png) center bottom;
+	display: block;
+	height: 37px;
+	margin-top: 0px;
+	padding-top: 26px;
+	color: #004f7c;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.55);
+	opacity: 1;
+}
+
+/*gradient in whole body*/
+#grad1 {
+	height: 700px;
+	background: -webkit-linear-gradient(#A9EDFC, #FFF);
+	background: -o-linear-gradient(#A9EDFC, #FFF);
+	background: -moz-linear-gradient(#A9EDFC, #FFF);
+	background: linear-gradient(#A9EDFC, #FFF);
+}
+/*gradient in the line*/
+#grad2 {
+	height: 3px;
+	background: -webkit-linear-gradient(left, red, blue);
+	background: -o-linear-gradient(right, red, blue);
+	background: -moz-linear-gradient(right, red, blue);
+	background: linear-gradient(to right, red, blue);
+}
+/*glowing text nd password field*/
+input[type=text],textarea {
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
+	padding: 3px 0px 3px 3px;
+	margin: 5px 1px 3px 0px;
+	border: 1px solid #DDDDDD;
+}
+
+input[type=password],textarea {
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;
+	padding: 3px 0px 3px 3px;
+	margin: 5px 1px 3px 0px;
+	border: 1px solid #DDDDDD;
+}
+
+input[type=text]:focus,textarea:focus {
+	box-shadow: 0 0 5px rgba(81, 203, 242, 4);
+	padding: 3px 0px 3px 3px;
+	margin: 5px 1px 3px 0px;
+	border: 1px solid rgba(81, 203, 242, 4);
+}
+
+input[type=password]:focus,textarea:focus {
+	box-shadow: 0 0 5px rgba(81, 203, 242, 4);
+	padding: 3px 0px 3px 3px;
+	margin: 5px 1px 3px 0px;
+	border: 1px solid rgba(81, 203, 242, 4);
+}
+
+/*glowing button*/
+.button {
+	display: inline-block;
+	background-color: #A9EDFC;
+	border-color: #A9EDFC;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.button:hover {
+	text-decoration: none;
+}
+
+.button:active {
+	position: relative;
+	top: 1px;
+}
+/*sliding*/
+#panel,#flip {
+	padding: 5px;
+	text-align: center;
+	background: #A9EDFC;
+}
+
+#panel {
+	display: none;
+}
+/*navigation bar*/
+ul {
+	list-style-types: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+li {
+	float: left;
+}
+
+a:link,a:visited {
+	display: block;
+	width: 200px;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #A9EDFC;
+	text-align: center;
+	padding: 1px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+a:hover,a:active {
+	background-color: #0CF;
+}
+
+/*maping*/
+#what-is-this {
+	margin: 50px 0;
+	text-align: center;
+}
+
+#map {
+	width: 700px;
+	height: 300px;
+	position: inherit;
+}
+
+#gotcha-at {
+	position: absolute;
+	width: 400px;
+	top: 370px;
+	right: 450px;
+	text-align: center;
+	background: rgba(255, 255, 255, .85);
+	padding: 5px 20px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	visibility: hidden;
+}
+
+.fixedImage {
+	height: 300px;
+	width: 450px;
+}

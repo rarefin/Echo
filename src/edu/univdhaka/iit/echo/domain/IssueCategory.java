@@ -1,6 +1,10 @@
 package edu.univdhaka.iit.echo.domain;
 import java.io.Serializable;
 
+/**
+ * this class contains the attributes of issue category related to an echo
+ *
+ */
 public class IssueCategory extends PersistentObject implements Serializable {
 
     private int id;

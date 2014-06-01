@@ -3,18 +3,25 @@ package edu.univdhaka.iit.echo.dao;
 import java.util.List;
 
 import edu.univdhaka.iit.echo.domain.Echo;
-import edu.univdhaka.iit.echo.domain.UserAccount;
+
+// This is the interface that contains the method to manipulate the 'echo' table in database
 
 public interface EchoDao {
-	
-	public void insertEcho(Echo echo, UserAccount user);
-	
+
+	public int insertEcho(Echo echo, int issueCategoryId);
+
 	public List<Echo> getAllEcho();
-	
-	public void deleteEcho(String text);
 
-	public void updateEcho(Echo echo, String text);
+	public void deleteEcho(int echoId);
 
-	public Echo selectEcho(String text);
+	public void updateEcho(Echo echo, int echoId);
+
+	public Echo selectOneEcho(int echoId);
+
+	public List<Echo> findEchoByUserName(String userName);
+
+	public int getIssueCategoryId(int echoId);
+
+	public List<Echo> findEchoByIssueCategory(String issueCategory);
 
 }

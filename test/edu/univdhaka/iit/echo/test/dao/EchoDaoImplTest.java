@@ -14,14 +14,15 @@ public class EchoDaoImplTest {
 
 	private static final int ID = 1;
 	private static final int VERSION = 0;
-	private static final Date CREATEDDATE  = null;
+	private static final int ECHO_ID = 5;
+	private static final String CREATEDDATE  = null;
 	private static final Date LASTMODIFIEDDATE  = null;
 	private static final double ACCURACY = 12.5;
 	private static final String ADDRESS = "dHAKA";
 	private static final String ECHO = "what a joke";
 	private static final Date TIMESTAMP  = null;
 	private static final double ALTITUDE = 12.3;
-	private static final Date GEOTIMESTAMP  = null;
+	private static final String GEOTIMESTAMP  = null;
 	private static final double LATITUDE = 12.1;
 	private static final double LONGITUDE = 12.4;
 	private static final boolean ANONYMOUS = true;
@@ -57,10 +58,10 @@ public class EchoDaoImplTest {
 	
 	@Test
 	public void testDeleteEcho() {
-		echoDao.deleteEcho(ECHO);
+		echoDao.deleteEcho(ECHO_ID);
 		
 		// Check By Asserting
-		Echo newEcho = echoDao.selectEcho(ECHO);
+		Echo newEcho = echoDao.selectOneEcho(ECHO_ID);
 				
 		Assert.assertNull(newEcho);
 	}
@@ -85,10 +86,10 @@ public class EchoDaoImplTest {
 		echo.setAnonymous(ANONYMOUS);
 		echo.setGeoLocation(GEOLOCATION);
 
-		echoDao.updateEcho(echo, ECHO);
+		echoDao.updateEcho(echo, ECHO_ID);
 		
 		// Check by Asserting 
-		Echo newEcho = echoDao.selectEcho(ECHO);
+		Echo newEcho = echoDao.selectOneEcho(ECHO_ID);
 		
 		Assert.assertNotNull(newEcho);
 		
@@ -109,7 +110,7 @@ public class EchoDaoImplTest {
 
 	@Test
 	public void testSelectEcho() {
-		Echo newEcho = echoDao.selectEcho(ECHO);
+		Echo newEcho = echoDao.selectOneEcho(ECHO_ID);
 		
 		Assert.assertNotNull(newEcho);
 		

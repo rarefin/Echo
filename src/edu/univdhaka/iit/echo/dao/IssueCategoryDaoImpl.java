@@ -13,30 +13,50 @@ import org.slf4j.LoggerFactory;
 
 import edu.univdhaka.iit.echo.domain.IssueCategory;
 
+/**
+ * @author robin
+ *This class implements the IssuecategoryDao interface
+ */
 public class IssueCategoryDaoImpl implements IssueCategoryDao {
 	private static final Logger log = LoggerFactory.getLogger(IssueCategoryDaoImpl.class);
 	
 	DatabaseConnector db = new DatabaseConnector();
 	Connection connection = db.openConnection();
 	
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.IssueCategoryDao#insert(edu.univdhaka.iit.echo.domain.IssueCategory, int)
+	 * this method helps to insert echo data in the 'issue_category' table. it's parameters  are IssueCategory object 
+	 * issue user id....this method returns issue category id from the 'issue_category' table which will be a reference 
+	 * in the 'echo' table.....
+	 */
 	@Override
-	public void insert(IssueCategory category) {
+	public int insert(IssueCategory category, int userId) {
 		log.debug("insert() > insert issue category info in the database");
+		int issueCategoryId = -1;
 		try {
-			String query = "INSERT INTO issue_category (version, createdDate, lastModifiedDate, isNew, title)" 
-					 + "VALUES(?, ?, ?, ?, ?)";
+			String query = "INSERT INTO issue_category (version, createdDate, lastModifiedDate, isNew, title, createdBy_id)" 
+					 + "VALUES(?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedStatement = null;
 			try {
-				preparedStatement = connection.prepareStatement(query);
+				preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 				
 				preparedStatement.setInt(1, category.getVersion());
-				preparedStatement.setDate(2, category.getCreatedDate());
+				preparedStatement.setString(2, category.getCreatedDate());
 				preparedStatement.setDate(3, category.getLastModifiedDate());
 				preparedStatement.setBoolean(4, category.isNew());
 				preparedStatement.setString(5, category.getTitle());
+				preparedStatement.setInt(6, userId);
 				
 				preparedStatement.execute();
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+				if (rs.next()) {
+				    issueCategoryId = rs.getInt(1);
+				} else {
+					log.error("Unable to get Issue Category id from inserting Issue Category");
+				}
+				System.out.println("Issue category key: "+  issueCategoryId);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				log.error("Unable to prepare issue category info to insert", e);
@@ -46,8 +66,13 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 		} finally {
 			db.closeConnection();
 		}	
+		return issueCategoryId;
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.IssueCategoryDao#getAllIssueCategoryInfo()
+	 * this method will help to get all issue catgory info
+	 */
 	@Override
 	public List<IssueCategory> getAllIssueCategoryInfo() {
 		log.debug("getAllIssueCategoryInfo() > get issue category info of all users");
@@ -63,7 +88,7 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 					
 					category.setId(rs.getInt("id"));
 					category.setVersion(rs.getInt("version"));
-					category.setCreatedDate(rs.getDate("createdDate"));
+					category.setCreatedDate(rs.getString("createdDate"));
 					category.setLastModifiedDate(rs.getDate("lastModifiedDate"));
 					category.setNew(rs.getBoolean("isNew"));
 					category.setTitle(rs.getString("title"));
@@ -82,6 +107,11 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 		return list;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.IssueCategoryDao#delete(int)
+	 * this method will help to delete a category using issue category id
+	 */
 	@Override
 	public void delete(int id) {
 		log.debug("delete() > delete issue categoy info");
@@ -103,6 +133,11 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 		}	
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.IssueCategoryDao#update(edu.univdhaka.iit.echo.domain.IssueCategory, int)
+	 * this method will help to update a issue category using its id
+	 */
 	@Override
 	public void update(IssueCategory category, int id) {
 		log.debug("upadte() > update issue category info");
@@ -116,7 +151,7 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 				preparedStatement = connection.prepareStatement(query);
 				
 				preparedStatement.setInt(1, category.getVersion());
-				preparedStatement.setDate(2, category.getCreatedDate());
+				preparedStatement.setString(2, category.getCreatedDate());
 				preparedStatement.setDate(3, category.getLastModifiedDate());
 				preparedStatement.setBoolean(4, category.isNew());
 				preparedStatement.setString(5, category.getTitle());
@@ -136,6 +171,11 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 		
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see edu.univdhaka.iit.echo.dao.IssueCategoryDao#select(int)
+	 * this method helps to find a issue category using its id 
+	 */
 	@Override
 	public IssueCategory select(int id) {
 		log.debug("select() > select issue category info of a user");
@@ -154,7 +194,7 @@ public class IssueCategoryDaoImpl implements IssueCategoryDao {
 					
 					category.setId(rs.getInt("id"));
 					category.setVersion(rs.getInt("version"));
-					category.setCreatedDate(rs.getDate("createdDate"));
+					category.setCreatedDate(rs.getString("createdDate"));
 					category.setLastModifiedDate(rs.getDate("lastModifiedDate"));
 					category.setNew(rs.getBoolean("isNew"));
 					category.setTitle(rs.getString("title"));

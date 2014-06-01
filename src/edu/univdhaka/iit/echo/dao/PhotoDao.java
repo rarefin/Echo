@@ -4,16 +4,17 @@ import java.util.List;
 
 import edu.univdhaka.iit.echo.domain.Photo;
 
+// This is the interface that contains the method to manipulate the 'photo' table in database
 public interface PhotoDao {
 	
-	public void insert(Photo photo);
+	public void insertPhoto(Photo photo, int echoId);
 
-	public List<Photo> getAllPhotoInfo();
+	public List<Photo> getAllPhoto();
 
-	public void delete(int id);
+	public void deletePhoto(int echoId);
 
-	public void update(Photo photo, int id);
+	public void updatePhoto(Photo photo, int id);
 
-	public Photo select(int id);
+	public Photo selectPhoto(int id);
 	
 }

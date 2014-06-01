@@ -7,6 +7,7 @@ public class Tag implements Serializable {
     private int id;
     private int version;
     private String title;
+    private Echo echo;
 
     public int getId() {
         return id;
@@ -31,4 +32,12 @@ public class Tag implements Serializable {
     public void setVersion(int version) {
         this.version = version;
     }
+
+	public Echo getEcho() {
+		return echo;
+	}
+
+	public void setEcho(Echo echo) {
+		this.echo = echo;
+	}
 }

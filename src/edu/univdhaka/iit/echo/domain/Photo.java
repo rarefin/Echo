@@ -6,13 +6,19 @@ import java.sql.Blob;
 import java.util.UUID;
 
 
+/**
+ * this class contains the attributes related to a photo
+ *
+ */
 public class Photo implements Serializable {
 
     private int id;
     private int version;
-    private Blob thumbnail;
-    private Blob original;
+    private byte[] thumbnail;
+    private byte[] original;
     private String contentType;
+    private UserAccount postedBy;
+    private Echo echo;
     
 
     public int getId() {
@@ -23,22 +29,7 @@ public class Photo implements Serializable {
         this.id = id;
     }
 
-    public Blob getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(Blob thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public Blob getOriginal() {
-        return original;
-    }
-
-    public void setOriginal(Blob original) {
-        this.original = original;
-    }
-
+    
     public String getContentType() {
         return contentType;
     }
@@ -54,4 +45,35 @@ public class Photo implements Serializable {
     public void setVersion(int version) {
         this.version = version;
     }
+
+	public byte[] getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(byte[] thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public byte[] getOriginal() {
+		return original;
+	}
+
+	public void setOriginal(byte[] original) {
+		this.original = original;
+	}
+	public Echo getEcho() {
+		return echo;
+	}
+
+	public void setEcho(Echo echo) {
+		this.echo = echo;
+	}
+
+	public UserAccount getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(UserAccount postedBy) {
+		this.postedBy = postedBy;
+	}
 }

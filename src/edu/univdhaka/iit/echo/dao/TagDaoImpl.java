@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.univdhaka.iit.echo.domain.IssueCategory;
 import edu.univdhaka.iit.echo.domain.Tag;
 
 public class TagDaoImpl implements TagDao {

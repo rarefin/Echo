@@ -4,17 +4,11 @@ import java.sql.Date;
 
 // Abstract Class for General Information
 public abstract class PersistentObject {
-    private Date createdDate;
-    private Date lastModifiedDate;
+    private String createdDate;
+	private Date lastModifiedDate;
 	private UserAccount lastModifiedBy;
     private UserAccount createdBy;
     
-    public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
 	public Date getLastModifiedDate() {
 		return lastModifiedDate;
 	}
@@ -32,5 +26,11 @@ public abstract class PersistentObject {
 	}
 	public void setCreatedBy(UserAccount createdBy) {
 		this.createdBy = createdBy;
+	}
+	public String getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}  
 }
